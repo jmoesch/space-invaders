@@ -119,6 +119,11 @@ fx.forEach(f=>{if(f.e)g.drawImage(spr.ex,Math.round(f.x),Math.round(f.y));else t
 txt(String(Math.max(lives,0)),8,251,P.hi);for(let i=0;i<lives-1;i++)g.drawImage(spr.cn,22+i*16,244);if(P.ov){g.globalCompositeOperation='multiply';g.fillStyle='#f00';g.fillRect(0,26,W,16);g.fillStyle='#0f0';g.fillRect(0,182,W,H-182);g.globalCompositeOperation='source-over'}}
 let last=0,acc=0;
 function loop(t){const dt=Math.min(50,t-last);last=t;acc+=dt;while(acc>=16.67){update();acc-=16.67}draw();requestAnimationFrame(loop)}
+['gesturestart','gesturechange','gestureend'].forEach(n=>document.addEventListener(n,e=>e.preventDefault()));
+document.addEventListener('touchstart',e=>{if(e.touches.length>1)e.preventDefault()},{passive:false});
+document.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
+let lt=0;document.addEventListener('touchend',e=>{const n=Date.now();if(n-lt<350)e.preventDefault();lt=n},{passive:false});
+document.addEventListener('dblclick',e=>e.preventDefault());
 applyPal();fit();
 newWave();score=0;lives=3;level=0;xn=1e9;xs=0;st='menu';requestAnimationFrame(loop);setTimeout(fit,100);
 </script></body></html>
